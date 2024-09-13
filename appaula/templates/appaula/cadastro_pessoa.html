@@ -9,9 +9,20 @@
         {% csrf_token %}
         <fildset>
             <legend>Dados Pessoais</legend>
-            Nome: <input type="text" name="p_nome" class="form-control" required="true">
-            RG: <input type="text" name="p_rg" class="form-control">
-            CPF:<input type="text" name="p_cpf" class="form-control"> 
+            <div class="row">
+                 <div class="col-md-12">
+                    Nome: <input type="text" name="p_nome" class="form-control" required="true">
+                 </div>
+            </div>
+            <dir class="row">
+                <div class="col-md-6">
+                    RG: <input type="text" name="p_rg" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    CPF:<input type="text" name="p_cpf" class="form-control"> 
+                </div>
+            </div>
+            
             Dt Nascimento: <input type="date" name="p_dtnascimento" class="form-control">
             E-Mail: <input type="email" name="p_email" class="form-control">
             CEP: <input type="text" name="p_cep" class="form-control">
