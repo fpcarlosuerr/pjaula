@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Cadastro de Pessoas {% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <form action="#" method="" class="form-control">
+        {% csrf_token %}
+        <fildset>
+            <legend>Dados Pessoais</legend>
+            Nome: <input type="text" name="p_nome" class="form-control" required="true">
+            RG: <input type="text" name="p_rg" class="form-control">
+            CPF:<input type="text" name="p_cpf" class="form-control"> 
+            Dt Nascimento: <input type="date" name="p_dtnascimento" class="form-control">
+            E-Mail: <input type="email" name="p_email" class="form-control">
+            CEP: <input type="text" name="p_cep" class="form-control">
+            <button>Cadastrar</button>
+        </fieldset>
+    </form>
+</div>
+
+{% endblock %}
