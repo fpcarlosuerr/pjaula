@@ -41,3 +41,41 @@ media/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+*.pdb
+*.egg-info/
+*.env
+*.venv
+*.local
+
+# Django
+*.log
+db.sqlite3
+/media
+/staticfiles
+*.pot
+*.pyc
+*.pyo
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Test
+coverage/
+*.cover
+nosetests.xml
+coverage.xml
+*.cover
+
+# Build
+build/
+dist/
+*.egg
+*.egg-info/
