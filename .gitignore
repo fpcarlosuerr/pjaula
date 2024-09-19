@@ -1,0 +1,43 @@
+# Python compiled files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+env/
+.venv/
+ENV/
+
+# Django migrations
+*/migrations/*.py
+*/migrations/*.pyc
+
+# Database files
+db.sqlite3
+
+# Static files
+/static/
+media/
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Local configuration files
+*.env
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+
+# OS generated files
+.DS_Store
+Thumbs.db
