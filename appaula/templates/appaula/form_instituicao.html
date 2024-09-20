@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de Instituições{% endblock %}
+
+{% block content %}
+<div class="container-sm">
+    <!-- Content here -->  
+    <div class="card">
+        <div class="card-header">
+            Cadastrar Instituições
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">    
+                    {{ form.nome_fantasia.label_tag }}
+                    {{ form.nome_fantasia }}
+                </div>    
+                <div class="mb-3">
+                    {{ form.cnpj.label_tag }}
+                    {{ form.cnpj }}
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar</button>    
+            </form>    
+        </div>        
+    </div>
+    <div class="card">
+        <div class="card-header">
+            Lista de Instituições
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>#1</td>
+                            <td>Instituição</td>
+                            <td>CNPJ</td>
+                            <td>Novo</td>
+                            <td>Alterar</td>
+                            <td>Excluir</td>
+                        </tr>    
+                    </thead>
+                    <tbody>
+                        {% for i in lista_instituicoes %}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.nome_fantasia}}</td>
+                            <td>{{i.cnpj}}</td>
+                            <td><a href="#"  class="btn btn-primary">Novo</a></td>
+                            <td><a href="#"  class="btn btn-primary">Alterar</a></td>
+                            <td><a href="#" class="btn btn-primary">Excluir</a></td>
+                        </tr>    
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+    </div>
+</div>
+{% endblock %}
