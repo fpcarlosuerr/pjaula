@@ -28,6 +28,18 @@ def criar_instituicao(request, id=None):
         'lista_instituicoes': lista_instituicoes,
         'instituicao': instituicao
     })
+
+def excluir_instituicao(request, id):
+    instituicao = get_object_or_404(Instituicao,pk=id)
+    instituicao.delete()
+    instituicao=None
+    lista_instituicoes=Instituicao.objects.all()
+    form = InstituicaoForm(instance=instituicao)
+    return render(request, 'appaula/form_instituicao.html', {
+        'form': form,
+        'lista_instituicoes': lista_instituicoes,
+        'instituicao': instituicao
+    })
     
 #Metodo para listar as instituições cadastradas
 def listar_instituicoes(request):

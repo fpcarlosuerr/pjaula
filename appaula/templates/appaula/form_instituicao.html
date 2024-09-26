@@ -20,7 +20,12 @@
             Cadastrar Instituições
         </div>
         <div class="card-body">
-            <form method="POST">
+            <form method="POST" 
+            action="{% if instituicao.id %}
+                         {% url 'editar_instituicao' instituicao.id %}
+                    {% else %}
+                         {% url 'criar_instituicao' %}
+                    {% endif %}">
                 {% csrf_token %}
                 <div class="mb-3">    
                     {{ form.nome_fantasia.label_tag }}
@@ -30,6 +35,7 @@
                     {{ form.cnpj.label_tag }}
                     {{ form.cnpj }}
                 </div>
+                <input type="hidden" id="{{instituicao.id}}">
                 <button type="submit" class="btn btn-primary">Salvar</button>    
             </form>    
         </div>        
@@ -43,10 +49,9 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <td>#1</td>
+                            <td>#id</td>
                             <td>Instituição</td>
                             <td>CNPJ</td>
-                            <td>Novo</td>
                             <td>Alterar</td>
                             <td>Excluir</td>
                         </tr>    
@@ -57,9 +62,8 @@
                             <td>{{i.id}}</td>
                             <td>{{i.nome_fantasia}}</td>
                             <td>{{i.cnpj}}</td>
-                            <td><a href="#"  class="btn btn-primary">Novo</a></td>
-                            <td><a href="#"  class="btn btn-primary">Alterar</a></td>
-                            <td><a href="#" class="btn btn-primary">Excluir</a></td>
+                            <td><a href="{% url 'editar_instituicao' i.id %}"  class="btn btn-primary">Alterar</a></td>
+                            <td><a href="{% url 'excluir_instituicao' i.id %}" class="btn btn-primary">Excluir</a></td>
                         </tr>    
                         {% endfor %}
                     </tbody>
