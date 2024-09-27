@@ -3,6 +3,7 @@
 {% block title %}Cadastro de Instituições{% endblock %}
 
 {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div class="container-sm">
     <!-- Content here -->  
     {% if messages %}
@@ -63,7 +64,7 @@
                             <td>{{i.nome_fantasia}}</td>
                             <td>{{i.cnpj}}</td>
                             <td><a href="{% url 'editar_instituicao' i.id %}"  class="btn btn-primary">Alterar</a></td>
-                            <td><a href="{% url 'excluir_instituicao' i.id %}" class="btn btn-primary">Excluir</a></td>
+                            <td><a href="{% url 'excluir_instituicao' i.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
                         </tr>    
                         {% endfor %}
                     </tbody>
@@ -72,4 +73,23 @@
         </div>        
     </div>
 </div>
+<script>
+    function confirmDelete(event, element) {
+        event.preventDefault();  // Impede o link de ser seguido imediatamente
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Você não poderá desfazer esta ação! Lembre-se caso tenha setores cadastrados estes serão excluidos também!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = element.href;  // Se confirmado, segue o link de exclusão
+            }
+        })
+    }
+    </script>
 {% endblock %}
