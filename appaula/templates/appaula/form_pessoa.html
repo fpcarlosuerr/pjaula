@@ -78,7 +78,7 @@
                 <td>{{ pessoa.email }}</td>
                 <td>
                     <a href="{% url 'editar_pessoa' pessoa.id %}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="{% url 'excluir_pessoa' pessoa.id %}" class="btn btn-danger btn-sm" onclick="confirmDelete(event, this);');">Excluir</a>
+                    <a href="{% url 'excluir_pessoa' pessoa.id %}" class="btn btn-danger btn-sm" onclick="confirmDelete(event, this);">Excluir</a>
                 </td>
             </tr>
             {% endfor %}
