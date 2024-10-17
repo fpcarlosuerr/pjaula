@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.db import IntegrityError
 from .models import Instituicao, Setor, Pessoa, Lotacao
 from .forms import InstituicaoForm, SetorForm, PessoaForm, LotacaoForm
+from django.db import connections
 
 
 #Metodo para abrir a página da Instituição para Novo cadastro ou Alteração de um existente
@@ -230,3 +231,26 @@ def excluir_lotacao(request, id):
     lotacao.delete()
     messages.success(request, 'Lotação excluída com sucesso!')
     return redirect('listar_lotacoes')  # Redirecionar para a listagem de lotações
+
+def abrir_lista_pessoas(request):
+    lista_pessoas=get_lista_pessoa()
+    #print(lista_pessoas)
+    return render(request,'appaula/relatorio_de_pessoas.html',
+                  {
+                      'lista_pessoas':lista_pessoas
+                  })
+
+def get_lista_pessoa():
+    with connections['default'].cursor() as cursor:
+        sql = """
+            select a.nome_fantasia instituicao, b.nome setor, d.nome, d.cpf 
+                from appaula_instituicao a
+                join appaula_setor b on b.instituicao_id =a.id
+                join appaula_lotacao c on c.setor_id =b.id 
+                join appaula_pessoa d on d.id =c.pessoa_id 
+         """
+        cursor.execute(sql)
+        columns = [col[0] for col in cursor.description]
+        lista = [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+    return lista

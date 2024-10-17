@@ -17,7 +17,7 @@ class Setor(models.Model):
     instituicao = models.ForeignKey(Instituicao, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nome
+        return f'{self.nome} - {self.instituicao}'
 
 class Pessoa(models.Model):
     nome = models.CharField(max_length=255)
@@ -38,4 +38,4 @@ class Lotacao(models.Model):
    situacao = models.BooleanField()
 
    def __str__(self):
-       return f"{self.pessoa.nome} - {self.setor.nome}"
+       return f"{self.pessoa.nome} - {self.setor.nome} - {self.setor.instituicao}"

@@ -19,5 +19,6 @@ urlpatterns = [
     path('lotacoes/', views.listar_lotacoes, name='listar_lotacoes'),
     path('lotacao/alterar/<int:id>/', views.criar_lotacao, name='editar_lotacao'),
     path('lotacao/excluir/<int:id>/', views.excluir_lotacao, name='excluir_lotacao'),
+    path('listarpessoas',views.abrir_lista_pessoas, name='listarpessoas'),
 ]
 

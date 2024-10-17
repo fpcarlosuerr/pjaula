@@ -47,7 +47,7 @@ class LotacaoForm(forms.ModelForm):
         }
         labels = {
             'pessoa':'Nome da Pessoa',
-            'setor': 'Setor de Instituição',
+            'setor': 'Setor da Instituição',
             'data_entrada': 'Data de Entrada no Setor',
             'data_saida': 'Data de Saída no Setor',
             'situacao': 'Situação da pessoa no setor',

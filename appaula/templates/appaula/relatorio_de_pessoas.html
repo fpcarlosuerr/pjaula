@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Relatório{% endblock %}
+{% block content %}
+<div class="container-sm">
+    <table>
+        <thead>
+          <tr>
+              <td>Instituição</td>
+              <td>Setor</td>
+               <td>Pessoa</td>
+               <td>CPF</td>
+          </tr>
+        </thead>
+        <tbody>
+        {% for l in lista_pessoas %}
+          <tr>
+              <td>{{l.instituicao}}</td>
+              <td>{{l.setor}}</td>
+              <td>{{l.nome}}</td>
+              <td>{{l.cpf}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+              <td colspan="4">Lista de Pessoas</td>
+          </tr>
+        </tfoot>
+    </table>
+</div>
+
+{% endblock %}
