@@ -5,7 +5,7 @@ from django.db import models
 #Classe Instituição
 class Instituicao(models.Model):
     nome_fantasia = models.CharField(max_length=255)
-    cnpj = models.CharField(max_length=15)
+    cnpj = models.CharField(max_length=20)
     
     def __str__(self):
         return self.nome_fantasia
@@ -35,7 +35,7 @@ class Lotacao(models.Model):
    setor = models.ForeignKey(Setor, on_delete=models.CASCADE)
    data_entrada=models.DateField()
    data_saida = models.DateField(null=True, blank=True)
-   situacao = models.IntegerField()
+   situacao = models.BooleanField()
    
    def __str__(self):
        return f"{self.pessoa.nome} - {self.setor.nome}"
