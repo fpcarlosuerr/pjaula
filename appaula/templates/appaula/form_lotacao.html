@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Lotação{% endblock %}
+
+{% block content %}
+    <h2>Cadastrar Lotação</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.pessoa.label_tag }}
+            {{ form.pessoa }}
+        </div>
+        <div class="mb-3">
+            {{ form.setor.label_tag }}
+            {{ form.setor }}
+        </div>
+        <div class="mb-3">
+            {{ form.data_entrada.label_tag }}
+            {{ form.data_entrada }}
+        </div>
+        <div class="mb-3">
+            {{ form.data_saida.label_tag }}
+            {{ form.data_saida }}
+        </div>
+        <div class="mb-3">
+            {{ form.situacao.label_tag }}
+            {{ form.situacao }}
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+<!-- Lista de Pessoas -->
+    <h3>Lista de Lotações</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Pessoa</th>
+                <th>Setor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pessoa in lista_lotacoes %}
+            <tr>
+                <td>{{ pessoa.pessoa }}</td>
+                <td>{{ pessoa.setor }}</td>
+                <td>
+                    <a href="{% url 'editar_lotacao' pessoa.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'excluir_lotacao' pessoa.id %}" class="btn btn-danger btn-sm" onclick="confirmDelete(event, this);');">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

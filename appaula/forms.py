@@ -35,22 +35,23 @@ class SetorForm(forms.ModelForm):
 
 
 class LotacaoForm(forms.ModelForm):
-    model = Lotacao        
-    fields = ['pessoa','setor','data_entrada','data_saida','situacao']
-    widgets = {
-        'pessoa': forms.Select(attrs={'class':'form-control'}),
-        'setor': forms.Select(attrs={'class':'form-control'}),
-        'data_entrada': forms.DateInput(attrs={'class':'form-control'}),
-        'data_saida': forms.DateInput(attrs={'class':'form-control'}),
-        'situacao':forms.NumberInput(attrs={'class':'form-control'}),
-    }
-    labels = {
-        'pessoa':'Nome da Pessoa',
-        'setor': 'Setor de Instituição',
-        'data_entrada': 'Data de Entrada no Setor',
-        'data_saida': 'Data de Saída no Setor',
-        'situacao': 'Situação da pessoa no setor',
-    }
+    class Meta:
+        model = Lotacao
+        fields = ['pessoa', 'setor', 'data_entrada', 'data_saida', 'situacao']
+        widgets = {
+            'pessoa': forms.Select(attrs={'class': 'form-control'}),
+            'setor': forms.Select(attrs={'class': 'form-control'}),
+            'data_entrada': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'data_saida': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'situacao': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'pessoa':'Nome da Pessoa',
+            'setor': 'Setor de Instituição',
+            'data_entrada': 'Data de Entrada no Setor',
+            'data_saida': 'Data de Saída no Setor',
+            'situacao': 'Situação da pessoa no setor',
+        }
 
 
 class PessoaForm(forms.ModelForm):

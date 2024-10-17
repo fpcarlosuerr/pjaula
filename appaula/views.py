@@ -224,4 +224,9 @@ def listar_lotacoes(request):
         'form': form,
         'lista_lotacoes': lista_lotacoes,
         'lotacao': lotacao})
-    
+
+def excluir_lotacao(request, id):
+    lotacao = get_object_or_404(Lotacao, pk=id)
+    lotacao.delete()
+    messages.success(request, 'Lotação excluída com sucesso!')
+    return redirect('listar_lotacoes')  # Redirecionar para a listagem de lotações
