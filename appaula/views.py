@@ -87,7 +87,7 @@ def criar_setor(request, id=None):
     else:
         form = SetorForm(instance=setor)
 
-    return render(request, 'appaula/form_setores.html', {
+    return render(request, 'appaula/form_setor.html', {
         'form': form,
         'lista_setores': lista_setores,
         'setor': setor
@@ -102,7 +102,7 @@ def listar_setores(request):
     lista_setores = Setor.objects.all().order_by('-id')
     
     form = SetorForm(instance=setor)
-    return render(request, 'appaula/form_setores.html', {
+    return render(request, 'appaula/form_setor.html', {
         'form': form,
         'lista_setores': lista_setores,
         'setor': setor})
@@ -118,7 +118,7 @@ def excluir_setor(request, id):
     lista_setores=Setor.objects.all().order_by('-id')
     
     form = SetorForm(instance=setor)
-    return render(request, 'appaula/form_setores.html', {
+    return render(request, 'appaula/form_setor.html', {
         'form': form,
         'lista_setores': lista_setores,
         'setor': setor
@@ -133,63 +133,52 @@ def index(request):
 #chama a pagina form_pessoa.html
 #Metodo para abrir a página de Pessoa para Novo cadastro ou Alteração de um existente
 def criar_pessoa(request, id=None):
-    # Para pesquisar todos os objetos da classe Setor em ordem decrescente de id, você pode usar o método order_by() no Django ORMSe 'id' for fornecido, buscar a Setor específica, senão, criar nova
+    # Se 'id' for fornecido, buscar a Pessoa específica, senão, criar nova
     pessoa = get_object_or_404(Pessoa, pk=id) if id else None
-    
-    #Para pesquisar todos os objetos da classe Pessoa em ordem decrescente de id, você pode usar o método order_by() no Django ORM
-    # o -id indica que a ordenação deve ser feita de forma decrescente com base no campo id
-    lista_pessoas = Pessoa.objects.all().order_by('-id')    
 
-    if request.method == "POST":        
-        form = PessoaForm(request.POST, instance=pessoa)             
-        if form.is_valid():
-           form.save()            
-           if pessoa:
-              messages.success(request, 'Pessoa atualizada com sucesso!')                
-           else:
-              messages.success(request, 'Pessoa adicionado com sucesso!')
-              return redirect('listar_pessoas')  # Redirecionar para a view de listagem
-        else:
-           for field, errors in form.errors.items():
-               for error in errors:
-                   messages.error(request, f"Erro no campo {field}: {error}")
-    else:                
-        form = PessoaForm(instance=pessoa)
-    return render(request, 'appaula/form_pessoa.html', {
-        'form': form,
-        'lista_pessoas': lista_pessoas,
-        'pessoa': pessoa
-    })
-
-#Metodo para listar as Pessoas cadastrados
-def listar_pessoas(request):
-    pessoa = None
-    
-    #Para pesquisar todos os objetos da classe Pessoa em ordem decrescente de id, você pode usar o método order_by() no Django ORM
-    # o -id indica que a ordenação deve ser feita de forma decrescente com base no campo id
+    # Listar todas as pessoas em ordem decrescente de ID
     lista_pessoas = Pessoa.objects.all().order_by('-id')
-    
-    form = PessoaForm(instance=pessoa)
-    return render(request, 'appaula/form_pessoa.html', {
-        'form': form,
-        'lista_pessoas': lista_pessoas,
-        'pessoa': pessoa})
-    
-def excluir_pessoa(request, id):
-    pessoa = get_object_or_404(Pessoa,pk=id)
-    pessoa.delete()
-    pessoa=None
-    
-    #Para pesquisar todos os objetos da classe Instituicao em ordem decrescente de id, você pode usar o método order_by() no Django ORM
-    # o -id indica que a ordenação deve ser feita de forma decrescente com base no campo id
-    lista_pessoas=Pessoa.objects.all().order_by('-id')
-    
-    form = PessoaForm(instance=pessoa)
+
+    if request.method == "POST":
+        form = PessoaForm(request.POST, instance=pessoa)
+        if form.is_valid():
+            form.save()
+            if pessoa:
+                messages.success(request, 'Pessoa atualizada com sucesso!')
+            else:
+                messages.success(request, 'Pessoa adicionada com sucesso!')
+            return redirect('listar_pessoas')  # Redirecionar após a criação ou atualização
+        else:
+            # Exibir mensagens de erro para cada campo
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Erro no campo {field}: {error}")
+    else:
+        form = PessoaForm(instance=pessoa)
+
     return render(request, 'appaula/form_pessoa.html', {
         'form': form,
         'lista_pessoas': lista_pessoas,
         'pessoa': pessoa
     })
+
+
+def listar_pessoas(request):
+    # Listar todas as pessoas em ordem decrescente de ID
+    lista_pessoas = Pessoa.objects.all().order_by('-id')
+
+    return render(request, 'appaula/form_pessoa.html', {
+        'lista_pessoas': lista_pessoas,
+    })
+
+
+def excluir_pessoa(request, id):
+    pessoa = get_object_or_404(Pessoa, pk=id)
+    pessoa.delete()
+    messages.success(request, 'Pessoa excluída com sucesso!')
+
+    return redirect('listar_pessoas')  # Redirecionar para a listagem após a exclusão
+
 
 #chama a pagina form_lotacao.html
 #Metodo para abrir a página de Pessoa para Novo cadastro ou Alteração de um existente

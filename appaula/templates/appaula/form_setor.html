@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="container-sm">
+    <!-- Content here -->  
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="card">
+        <div class="card-header">
+            Cadastrar Setor
+        </div>
+        <div class="card-body">
+            <form method="POST" 
+            action="{% if setor.id %}
+                         {% url 'editar_setor' setor.id %}
+                    {% else %}
+                         {% url 'criar_setor' %}
+                    {% endif %}">
+                {% csrf_token %}
+                <div class="mb-3">    
+                    {{ form.instituicao.label_tag }}
+                    {{ form.instituicao }}
+                </div>    
+                <div class="mb-3">    
+                    {{ form.nome.label_tag }}
+                    {{ form.nome }}
+                </div>    
+                <div class="mb-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    {{ form.ramal.label_tag }}
+                    {{ form.ramal }}
+                </div>
+                <input type="hidden" id="{{setor.id}}">
+                <button type="submit" class="btn btn-primary">Salvar</button>    
+            </form>    
+        </div>        
+    </div>
+</div>
+</div>
+{% endblock %}

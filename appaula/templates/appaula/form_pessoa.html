@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de Pessoas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Cadastro de Pessoas</h2>
+
+    <!-- Exibe as mensagens de sucesso ou erro -->
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Formulário de cadastro de pessoa -->
+    <div class="card mb-4">
+        <div class="card-header">
+            {{ pessoa.id|yesno:"Editar Pessoa,Nova Pessoa" }}
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.nome.label_tag }}
+                    {{ form.nome }}
+                </div>
+                <div class="mb-3">
+                    {{ form.cpf.label_tag }}
+                    {{ form.cpf }}
+                </div>
+                <div class="mb-3">
+                    {{ form.data_de_nascimento.label_tag }}
+                    {{ form.data_de_nascimento }}
+                </div>
+                <div class="mb-3">
+                    {{ form.telefone.label_tag }}
+                    {{ form.telefone }}
+                </div>
+                <div class="mb-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    {{ form.cep.label_tag }}
+                    {{ form.cep }}
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lista de Pessoas -->
+    <h3>Lista de Pessoas</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Data de Nascimento</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pessoa in lista_pessoas %}
+            <tr>
+                <td>{{ pessoa.nome }}</td>
+                <td>{{ pessoa.cpf }}</td>
+                <td>{{ pessoa.data_de_nascimento }}</td>
+                <td>{{ pessoa.telefone }}</td>
+                <td>{{ pessoa.email }}</td>
+                <td>
+                    <a href="{% url 'editar_pessoa' pessoa.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'excluir_pessoa' pessoa.id %}" class="btn btn-danger btn-sm" onclick="confirmDelete(event, this);');">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
