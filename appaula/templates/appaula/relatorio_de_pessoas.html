@@ -2,8 +2,9 @@
 {% block title %}Relatório{% endblock %}
 {% block content %}
 <div class="container-sm">
-    <table>
-        <thead>
+    <div class="table-responsive">
+    <table  class="table table-striped" id="listaPessoas">
+        <thead class="table-dark">
           <tr>
               <td>Instituição</td>
               <td>Setor</td>
@@ -27,6 +28,16 @@
           </tr>
         </tfoot>
     </table>
+    </div>
 </div>
 
+<script>
+new DataTable('#listaPessoas', {
+    layout: {
+        topStart: {
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+        }
+    }
+});
+</script>
 {% endblock %}

@@ -57,7 +57,7 @@
 
     <!-- Lista de Pessoas -->
     <h3>Lista de Pessoas</h3>
-    <table class="table">
+    <table class="table" id="listaPessoas">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -85,4 +85,15 @@
         </tbody>
     </table>
 </div>
+
+<script>
+new DataTable('#listaPessoas', {
+    layout: {
+        topStart: {
+            buttons: ['csv', 'pdf', 'print']
+        }
+    }
+});
+</script>
+
 {% endblock %}
