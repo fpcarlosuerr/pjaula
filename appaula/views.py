@@ -234,7 +234,7 @@ def excluir_lotacao(request, id):
 
 def abrir_lista_pessoas(request):
     lista_pessoas=get_lista_pessoa()
-    #print(lista_pessoas)
+    print(get_pessoa_pelo_id(5))
     return render(request,'appaula/relatorio_de_pessoas.html',
                   {
                       'lista_pessoas':lista_pessoas
@@ -252,5 +252,22 @@ def get_lista_pessoa():
         cursor.execute(sql)
         columns = [col[0] for col in cursor.description]
         lista = [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+    return lista
+
+def get_pessoa_pelo_id(id):
+    with connections['default'].cursor() as cursor:
+        sql = """
+            select a.nome_fantasia instituicao, b.nome setor, d.nome, d.cpf 
+                from appaula_instituicao a
+                join appaula_setor b on b.instituicao_id =a.id
+                join appaula_lotacao c on c.setor_id =b.id 
+                join appaula_pessoa d on d.id =c.pessoa_id
+            where d.id = %s 
+         """
+        cursor.execute(sql,[id])
+        columns = [col[0] for col in cursor.description]
+        lista = [dict(zip(columns, row)) for row in cursor.fetchall()]
+
 
     return lista
