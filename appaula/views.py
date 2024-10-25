@@ -5,6 +5,7 @@ from django.db import IntegrityError
 from .models import Instituicao, Setor, Pessoa, Lotacao
 from .forms import InstituicaoForm, SetorForm, PessoaForm, LotacaoForm
 from django.db import connections
+from django.contrib.auth.decorators import login_required
 
 
 #Metodo para abrir a página da Instituição para Novo cadastro ou Alteração de um existente
